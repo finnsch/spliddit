@@ -9,6 +9,9 @@ var REGIONAL_INDICATOR_END = 0x1F1FF
 var FITZPATRICK_MODIFIER_START = 0x1f3fb
 var FITZPATRICK_MODIFIER_END = 0x1f3ff
 
+var VARIATION_MODIFIER_START = 0xFE00
+var VARIATION_MODIFIER_END = 0xFE0F
+
 function spliddit (s, delimiter) {
   if (s === void 0 || s === null) {
     throw new Error('s cannot be undefined or null')
@@ -51,6 +54,11 @@ function take_how_many (i, s) {
   var current = s[i]
   var current_pair
   var next_pair
+
+  // If we have variation selector at next position, we can handle it as pair
+  if(is_variation_selector(s[i + 1])){
+    return 2
+  }
 
   // If we don't have a value that is part of a surrogate pair, or we're at
   // the end, only take the value at i
@@ -121,6 +129,17 @@ function is_fitzpatrick_modifier (s) {
 
   return between_inclusive(
     code_point, FITZPATRICK_MODIFIER_START, FITZPATRICK_MODIFIER_END
+  )
+}
+
+function is_variation_selector (s) {
+  if (typeof s !== 'string') {
+    return false
+  }
+  var code_point = s.charCodeAt(0)
+
+  return between_inclusive(
+    code_point, VARIATION_MODIFIER_START, VARIATION_MODIFIER_END
   )
 }
 

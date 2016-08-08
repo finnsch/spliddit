@@ -34,6 +34,19 @@ test('emoji party', function (t) {
   t.end()
 })
 
+test('heart emoji ❤️', function (t) {
+  var s = '❤️'
+
+  t.deepEqual(spliddit(s), ['❤️'])
+  t.end()
+})
+
+test('heart emoji ♥️', function (t) {
+  var s = '♥️'
+  t.deepEqual(spliddit(s), ['♥️'])
+  t.end()
+})
+
 test('check', function (t) {
   var result = spliddit('123🍕✓')
 
