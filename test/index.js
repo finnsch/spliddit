@@ -47,6 +47,12 @@ test('heart emoji ♥️', function (t) {
   t.end()
 })
 
+test('victory hand with skin tone ✌🏼️', function (t) {
+  var s = '✌🏼'
+  t.deepEqual(spliddit(s), ['✌🏼'])
+  t.end()
+})
+
 test('check', function (t) {
   var result = spliddit('123🍕✓')
 
