@@ -159,3 +159,4 @@ function between_inclusive (value, lower_bound, upper_bound) {
 module.exports = spliddit
 module.exports.isFirstOfPair = is_first_of_surrogate_pair
 module.exports.hasPair = has_pair
+module.exports.take_how_many = take_how_many
