@@ -56,29 +56,7 @@ function take_how_many (i, s) {
   var next_pair
   var pair_after_current
 
-  current_pair = current + s[i + 1]
-  next_pair = s.substring(i + 2, i + 5)
   pair_after_current = s.substring(i + 1, i + 3)
-
-  // Country flags are comprised of two regional indicator symbols,
-  // each represented by a surrogate pair.
-  // See http://emojipedia.org/flags/
-  // If both pairs are regional indicator symbols, take 4
-  if (is_regional_indicator_symbol(current_pair) &&
-      is_regional_indicator_symbol(next_pair)) {
-    return 4
-  }
-
-  // If the next pair make a Fitzpatrick skin tone
-  // modifier, take 4
-  // See http://emojipedia.org/modifiers/
-  // Technically, only some code points are meant to be
-  // combined with the skin tone modifiers. This function
-  // does not check the current pair to see if it is
-  // one of them.
-  if (is_fitzpatrick_modifier(next_pair)) {
-    return 4
-  }
 
   // If the pair after the current char is a Fitzpatrick
   // skin tone modifier, take 3
@@ -101,6 +79,29 @@ function take_how_many (i, s) {
   // can only take the current pair
   if ((i + 3) > last_index) {
     return 2
+  }
+
+  current_pair = current + s[i + 1]
+  next_pair = s.substring(i + 2, i + 5)
+
+  // Country flags are comprised of two regional indicator symbols,
+  // each represented by a surrogate pair.
+  // See http://emojipedia.org/flags/
+  // If both pairs are regional indicator symbols, take 4
+  if (is_regional_indicator_symbol(current_pair) &&
+      is_regional_indicator_symbol(next_pair)) {
+    return 4
+  }
+
+  // If the next pair make a Fitzpatrick skin tone
+  // modifier, take 4
+  // See http://emojipedia.org/modifiers/
+  // Technically, only some code points are meant to be
+  // combined with the skin tone modifiers. This function
+  // does not check the current pair to see if it is
+  // one of them.
+  if (is_fitzpatrick_modifier(next_pair)) {
+    return 4
   }
 
   return 2
